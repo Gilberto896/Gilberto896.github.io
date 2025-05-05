@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="shortcut icon" href="/images/dron-de-camara.png" type="image/x-icon">
+  <title>Favoritos </title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .producto-card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+      max-width: 300px;
+    }
+    .producto-card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .acciones button {
+      margin: 5px 5px 0 0;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn-primario {
+      background-color: #007bff;
+      color: white;
+    }
+    .btn-secundario {
+      background-color: #dc3545;
+      color: white;
+    }
+    .productos-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap; /* Permite que bajen a otra línea si no caben */
+}
+
+.producto-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  width: 300px;
+  box-sizing: border-box;
+}
+#favoritosContainer {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+  </style>
+</head>
+<body>
+  <h1>Productos</h1>
+
+  <div class="productos-container">
+    <div class="producto-card">
+      <img src="/images/antena1.jpg" alt="Antena Básica" />
+      <h3>Antena Básica</h3>
+      <p>$40.00 USD</p>
+      <div class="acciones">
+        <button class="btn-primario" onclick="agregarAlCarrito('antena-basica')">🛒 Añadir al carrito</button>
+        <button class="btn-secundario" onclick='guardarEnFavoritos({
+          id: "antena-basica",
+          nombre: "Antena Básica",
+          precio: 40.00,
+          imagen: "/images/antena1.jpg"
+        })'>❤️ Guardar</button>
+      </div>
+    </div>
+  
+    <div class="producto-card">
+      <img src="/images/antena8.jpg" alt="Antena PRO" />
+      <h3>Antena PRO</h3>
+      <p>$80.00 USD</p>
+      <div class="acciones">
+        <button class="btn-primario" onclick="agregarAlCarrito('antena-pro')">🛒 Añadir al carrito</button>
+        <button class="btn-secundario" onclick='guardarEnFavoritos({
+          id: "antena-pro",
+          nombre: "Antena PRO",
+          precio: 80.00,
+          imagen: "/images/antena8.jpg"
+        })'>❤️ Guardar</button>
+      </div>
+    </div>
+  
+    <div class="producto-card">
+      <img src="/images/antena17.jpg" alt="Antena PRO MAX" />
+      <h3>Antena PRO MAX</h3>
+      <p>$120.00 USD</p>
+      <div class="acciones">
+        <button class="btn-primario" onclick="agregarAlCarrito('antena-pro-max')">🛒 Añadir al carrito</button>
+        <button class="btn-secundario" onclick='guardarEnFavoritos({
+          id: "antena-pro-max",
+          nombre: "Antena PRO MAX",
+          precio: 120.00,
+          imagen: "/images/antena17.jpg"
+        })'>❤️ Guardar</button>
+      </div>
+    </div>
+  </div>
+  
+
+  <hr>
+
+  <h2>Mis Favoritos</h2>
+  <div id="favoritosContainer">
+    <p>No tienes productos en favoritos.</p>
+  </div>
+
+  <script>
+    function guardarEnFavoritos(producto) {
+      let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+      const existe = favoritos.some(p => p.id === producto.id);
+      if (!existe) {
+        favoritos.push(producto);
+        localStorage.setItem('favoritos', JSON.stringify(favoritos));
+        alert("Producto guardado en favoritos");
+        cargarFavoritos(); // Actualiza la vista
+      } else {
+        alert("Este producto ya está en favoritos");
+      }
+    }
+
+    function cargarFavoritos() {
+      const contenedor = document.getElementById("favoritosContainer");
+      const favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+
+      contenedor.innerHTML = "";
+
+      if (favoritos.length === 0) {
+        contenedor.innerHTML = "<p>No tienes productos en favoritos.</p>";
+        return;
+      }
+
+      favoritos.forEach(producto => {
+        const card = document.createElement("div");
+        card.classList.add("producto-card");
+        card.innerHTML = `
+          <img src="${producto.imagen}" alt="${producto.nombre}">
+          <h3>${producto.nombre}</h3>
+          <p>$${producto.precio.toFixed(2)}</p>
+          <div class="acciones">
+            <button class="btn-secundario" onclick="eliminarFavorito('${producto.id}')">🗑️ Eliminar</button>
+          </div>
+        `;
+        contenedor.appendChild(card);
+      });
+    }
+
+    function eliminarFavorito(id) {
+      let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+      favoritos = favoritos.filter(producto => producto.id !== id);
+      localStorage.setItem('favoritos', JSON.stringify(favoritos));
+      cargarFavoritos();
+    }
+
+    function agregarAlCarrito(id) {
+      alert(`Agregado al carrito: ${id}`);
+      // Aquí puedes extender la lógica para manejar el carrito si lo deseas
+    }
+
+    document.addEventListener("DOMContentLoaded", cargarFavoritos);
+  </script>
+  
+</body>
+
+

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Antena BASICA | SKYLINK</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="shortcut icon" href="/images/dron-de-camara.png" type="image/x-icon">
+  <style>
+    :root {
+      --azul: #007acc;
+      --gris-claro: #f5f5f5;
+      --gris: #ccc;
+      --negro: #222;
+      --blanco: #fff;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: var(--gris-claro);
+      color: var(--negro);
+    }
+
+    header {
+      background: var(--azul);
+      color: white;
+      padding: 1rem 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 1rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .breadcrumb a {
+      color: var(--azul);
+      text-decoration: none;
+    }
+
+    .producto-detalle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      background: var(--blanco);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .imagen-principal img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .miniaturas {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .miniaturas img {
+      width: 60px;
+      height: 60px;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .miniaturas img:hover {
+      border-color: var(--azul);
+    }
+
+    .producto-info h1 {
+      margin-top: 0;
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .precio {
+      font-size: 1.5rem;
+      color: var(--azul);
+    }
+
+    .precio-antiguo {
+      text-decoration: line-through;
+      font-size: 1rem;
+      color: gray;
+      margin-left: 10px;
+    }
+
+    .disponibilidad {
+      margin: 0.5rem 0;
+      color: green;
+    }
+
+    .variantes select,
+    .cantidad input {
+      padding: 0.4rem;
+      border-radius: 5px;
+      border: 1px solid var(--gris);
+    }
+
+    .selector-cantidad {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .selector-cantidad button {
+      width: 30px;
+      height: 30px;
+      font-size: 1.2rem;
+      background: var(--gris);
+      border: none;
+      cursor: pointer;
+    }
+
+    .acciones {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn-primario, .btn-secundario {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-primario {
+      background: var(--azul);
+      color: white;
+    }
+
+    .btn-secundario {
+      background: var(--gris);
+      color: black;
+    }
+
+    .producto-tabs {
+      margin-top: 2rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .tab-btn {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      background: var(--gris);
+      cursor: pointer;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .tab-btn.active {
+      background: var(--azul);
+      color: white;
+    }
+
+    .tab-content {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 0.5rem;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .reseñas {
+      margin-top: 2rem;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+    }
+
+    .reseña {
+      border-top: 1px solid #eee;
+      padding-top: 1rem;
+      margin-top: 1rem;
+    }
+
+    .reseña-header {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .productos-relacionados {
+      margin-top: 3rem;
+    }
+
+    .relacionados-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .producto-mini {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+
+    .producto-mini img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    .btn-mini {
+      background: var(--azul);
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      margin-top: 0.5rem;
+      cursor: pointer;
+    }
+
+    footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .producto-detalle {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SKYLINK</h1>
+  </header>
+
+  <main class="container">
+    <div class="breadcrumb">
+      <a href="/index.html">Inicio</a> > <a href="/index.html">Productos</a> > <span>Antena Basica</span>
+    </div>
+
+    <section class="producto-detalle">
+      <div class="producto-galeria">
+        <div class="imagen-principal">
+          <img id="main-image" src="/images/antena1.jpg" alt="Antena PRO" />
+        </div>
+        <div class="miniaturas">
+          <img src="/images/antena2.jpg" onclick="cambiarImagen(this)">
+          <img src="/images/antena3.jpg" onclick="cambiarImagen(this)">
+          <img src="/images/nuevas5.jpg" onclick="cambiarImagen(this)">
+        </div>
+      </div>
+
+      <div class="producto-info">
+        <h1>Antena Basica</h1>
+        <div class="rating">
+          <span>★★★★★</span>
+          <a href="#reseñas">(20 reseñas)</a>
+        </div>
+        <p class="precio">$40.00 <span class="precio-antiguo">$60.00</span></p>
+        <p class="disponibilidad"><i class="fas fa-check-circle"></i> En stock (50 disponibles)</p>
+
+        <div class="variantes">
+          <label for="modelo">Modelo:Basico</label>
+          <select id="modelo">
+            <option>Estándar</option>
+            <option>Basic(15 km)</option>
+          </select>
+        </div>
+
+        <div class="cantidad">
+          <label>Cantidad:</label>
+          <div class="selector-cantidad">
+            <button onclick="modificarCantidad(-1)">−</button>
+            <input type="number" id="cantidad" value="1" min="1" />
+            <button onclick="modificarCantidad(1)">+</button>
+          </div>
+        </div>
+        <div class="acciones">
+            <button class="btn-primario" onclick="window.location.href='/carrito.html'">
+              <i class="fas fa-shopping-cart"></i> Añadir al carrito
+            </button>
+            <button class="btn-secundario" onclick="window.location.href='/favoritos.html'">
+              <i class="fas fa-heart"></i> Guardar
+            </button>
+          </div>
+          
+        <div class="envio-info">
+          <p><i class="fas fa-truck"></i> Envío: $5.99 • Entrega en 2-3 días</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="producto-tabs">
+      <div class="tabs">
+        <button class="tab-btn active" onclick="abrirTab('descripcion')">Descripción</button>
+        <button class="tab-btn" onclick="abrirTab('especificaciones')">Especificaciones</button>
+        <button class="tab-btn" onclick="abrirTab('envio')">Envío</button>
+      </div>
+
+      <div id="descripcion" class="tab-content">
+        <h3>Potencia tu dron al máximo</h3>
+        <p>Diseñada para estabilidad de señal en vuelos largos. Compatible con DJI, Autel y Skydio.</p>
+        <ul>
+          <li>Alcance de hasta 15 km</li>
+          <li>Reducción de latencia</li>
+          <li>Frecuencia dual 2.4GHz y 5.8GHz</li>
+        </ul>
+      </div>
+
+      <div id="especificaciones" class="tab-content" style="display:none">
+        <table>
+          <tr><th>Peso</th><td>350g</td></tr>
+          <tr><th>Dimensiones</th><td>15x10x3 cm</td></tr>
+          <tr><th>Frecuencia</th><td>2.4GHz / 5.8GHz</td></tr>
+        </table>
+      </div>
+
+      <div id="envio" class="tab-content" style="display:none">
+        <ul>
+          <li>Envío estándar: $5.99 (2-3 días)</li>
+          <li>Express: $12.99 (1 día)</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="reseñas" id="reseñas">
+      <h2>Reseñas</h2>
+      <div class="reseña">
+        <div class="reseña-header">
+          <strong>Carlos M.</strong><span>★★★★★</span>
+        </div>
+        <p>La mejor antena para mi Mavic. Señal súper estable incluso en zonas urbanas.</p>
+      </div>
+    </section>
+
+    <section class="productos-relacionados">
+      <h2>También te puede interesar</h2>
+      <div class="relacionados-grid">
+        <div class="producto-mini">
+          <img src="/images/antena8.jpg" />
+          <h3>Antena PRO</h3>
+          <p>$80.00</p>
+          <button class="btn-mini" onclick="window.location.href='/producto2.html'"> Ver
+        </button>
+        </div>
+        <div class="producto-mini">
+          <img src="/images/antena17.jpg" />
+          <h3>Paquete ¡Sin Limites!</h3>
+          <p>$120.00</p>
+          <button class="btn-mini" onclick="window.location.href='/producto3.html'"> Ver
+        </button>
+        </div>
+      </div>
+    </section>
+  </main>
+     <center><button class="btn-primario" onclick="window.location.href='/index.html'">
+             Volver a la pagina Principal
+            </button></center>
+
+  <footer>
+    <p>&copy; 2025 SKYLINK. Todos los derechos reservados.Por GSL</p>
+  </footer>
+
+  <script>
+    function cambiarImagen(img) {
+      document.getElementById('main-image').src = img.src;
+    }
+
+    function modificarCantidad(cambio) {
+      const input = document.getElementById('cantidad');
+      let nuevaCantidad = parseInt(input.value) + cambio;
+      if (nuevaCantidad >= 1) input.value = nuevaCantidad;
+    }
+
+    function abrirTab(id) {
+      const tabs = document.querySelectorAll('.tab-content');
+      const btns = document.querySelectorAll('.tab-btn');
+      tabs.forEach(t => t.style.display = 'none');
+      btns.forEach(b => b.classList.remove('active'));
+      document.getElementById(id).style.display = 'block';
+      event.target.classList.add('active');
+    }
+  </script>
+  <script>
+    function cargarCarrito() {
+      const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      const contenedor = document.querySelector('.carrito-items');
+      contenedor.innerHTML = "";
+  
+      let subtotal = 0;
+  
+      carrito.forEach((producto, i) => {
+        const item = document.createElement('div');
+        item.className = 'carrito-item';
+        item.innerHTML = `
+          <img src="${producto.imagen}" alt="${producto.nombre}" />
+          <div class="item-info">
+            <h3>${producto.nombre}</h3>
+            <p>Precio unitario: $${producto.precio.toFixed(2)}</p>
+            <div class="item-cantidad">
+              <button onclick="cambiarCantidad(${i}, -1)">-</button>
+              <span class="cantidad">${producto.cantidad}</span>
+              <button onclick="cambiarCantidad(${i}, 1)">+</button>
+            </div>
+          </div>
+          <button class="item-eliminar" onclick="eliminarItem(${i})">🗑️</button>
+        `;
+        contenedor.appendChild(item);
+  
+        subtotal += producto.precio * producto.cantidad;
+      });
+  
+      document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+      document.getElementById('total').textContent = `$${(subtotal + 5).toFixed(2)}`;
+    }
+  
+    function cambiarCantidad(index, cambio) {
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      carrito[index].cantidad += cambio;
+      if (carrito[index].cantidad < 1) carrito[index].cantidad = 1;
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      cargarCarrito();
+    }
+  
+    function eliminarItem(index) {
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      carrito.splice(index, 1);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      cargarCarrito();
+    }
+  
+    document.addEventListener('DOMContentLoaded', cargarCarrito);
+  </script>
+  
+</body>
+</html>

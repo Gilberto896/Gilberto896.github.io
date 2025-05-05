@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog y Contacto | SKYLINK</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="shortcut icon" href="/images/dron-de-camara.png" type="image/x-icon">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      background: #007bff;
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    nav {
+      background-color: #0056b3;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      margin: 0 15px;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+
+    nav a:hover {
+      background-color: #004085;
+    }
+
+    .blog-post, .contacto, .equipo {
+      background: white;
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 800px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .blog-post h2, .contacto h2, .equipo h2 {
+      margin-top: 0;
+      color: #007bff;
+    }
+
+    .contacto a {
+      margin-right: 15px;
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    .equipo {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-around;
+    }
+
+    .miembro {
+      flex: 1 1 200px;
+      text-align: center;
+    }
+
+    .miembro img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      transition: transform 0.3s;
+    }
+
+    .miembro img:hover {
+      transform: scale(1.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: #222;
+      color: white;
+      margin-top: 40px;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+      padding: 0.3rem 0.6rem;
+      margin: 0 10px;
+      border-radius: 5px;
+      background-color: #007bff;
+    }
+
+    footer a:hover {
+      background-color: #0056b3;
+    }
+
+    .form-contacto {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-contacto input, .form-contacto textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .form-contacto button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .form-contacto button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>SKYLINK</h1>
+    <p>Conectando el futuro, un paso a la vez</p>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#blog">Blog</a>
+    <a href="#equipo">Equipo</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+
+  <!-- Blog Section -->
+  <section class="blog-post" id="blog">
+    <h2>Nuestro Lanzamiento 🚀</h2>
+    <p>Nos emociona anunciar el lanzamiento oficial de SKYLINK, una plataforma dedicada a soluciones de conectividad innovadoras.</p>
+    <p>Este blog será tu fuente de novedades, consejos y desarrollos tecnológicos en los que trabajamos para mejorar tu experiencia.</p>
+  </section>
+
+  <section class="blog-post">
+    <h2>Novedades en Antenas</h2>
+    <p>Hemos lanzado nuevas versiones de nuestras antenas PRO y PRO MAX, con mejor alcance, durabilidad y diseño.</p>
+    <p>¿Quieres saber cuál es la mejor opción para ti? Mantente al tanto de nuestras comparativas y guías.</p>
+  </section>
+
+  <!-- Equipo Section -->
+  <section class="equipo" id="equipo">
+    <h2>Conoce a nuestro equipo</h2>
+    <div class="miembro">
+      <img src="/images/face1.jpeg" alt="Gilberto Solis Lopez">
+      <h3>Gilberto Solis Lopez</h3>
+      <p>Fundador y CEO</p>
+    </div>
+    <div class="miembro">
+      <img src="/images/face2.png" alt="Paola">
+      <h3>Paola</h3>
+      <p>Ingeniera de Producto</p>
+    </div>
+    <div class="miembro">
+      <img src="/images/face1.jpeg" alt="Alexander">
+      <h3>Serrano Calette Alexander Emiliano</h3>
+      <p>Fundador y CEO</p>
+    </div>
+    <div class="miembro">
+      <img src="/images/face1.jpeg" alt="Sebastian">
+      <h3>Castillo Navarrete Sebastian</h3>
+      <p>Marketing y Comunicación</p>
+    </div>
+    <div class="miembro">
+      <img src="/images/face2.png" alt="Paola">
+      <h3>Paola</h3>
+      <p>Marketing y Comunicación</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contacto" id="contacto">
+    <h2>Contáctanos</h2>
+    <p>¿Tienes dudas o quieres trabajar con nosotros? Estamos a un clic:</p>
+    <a href="mailto:gilbertosolislopez9@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+    <a href="https://wa.me/7294529009" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    <a href="https://www.facebook.com/profile.php?id=61575783729587" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+    <a href="https://www.instagram.com/sky.link2025/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+  </section>
+
+  <!-- Contact Form -->
+  <section id="formulario">
+    <h2>Formulario de Contacto</h2>
+    <form class="form-contacto">
+      <input type="text" placeholder="Tu Nombre" required>
+      <input type="email" placeholder="Tu Email" required>
+      <textarea placeholder="Tu Mensaje" required></textarea>
+      <button type="submit">Enviar Mensaje</button>
+    </form>
+  <center> <button type="button" style="background-color: #28a745; color: white; padding: 0.8rem; border: none; border-radius: 6px; cursor: pointer; width: auto; text-align: center;" onclick="window.location.href='/index.html'">
+        Volver a página principal
+      </button></center>
+      
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 SKYLINK | Todos los derechos reservados</p>
+    <div>
+      <a href="#blog">Blog</a> | <a href="#equipo">Equipo</a> | <a href="#contacto">Contacto</a>
+    </div>
+  </footer>
+
+</body>
+</html>

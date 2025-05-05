@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Finalizar Compra | SKYLINK</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="shortcut icon" href="/images/dron-de-camara.png" type="image/x-icon">
+    <link rel="stylesheet" href="/ccs/estilos.css">
+    <link rel="stylesheet" href="/ccs/tienda.css">
+    <style>
+        @media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212;
+        color: #e5e5e5;
+    }
+
+    .checkout-form,
+    .checkout-summary,
+    .metodo-pago {
+        background-color: #1e1e1e;
+        box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+    }
+
+    .step {
+        background: #2a2a2a;
+        color: #bbb;
+    }
+
+    .step.active {
+        background: #0d6efd;
+        color: #fff;
+    }
+
+    input,
+    select {
+        background-color: #2b2b2b;
+        color: #f1f1f1;
+        border: 1px solid #444;
+    }
+
+    input:focus,
+    select:focus {
+        border-color: #0d6efd;
+    }
+
+    #card-element {
+        background: #2b2b2b;
+        border-color: #444;
+    }
+
+    .shipping-method {
+        color: #ccc;
+    }
+
+    .summary-total {
+        border-top-color: #444;
+    }
+
+    .btn-primario {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+    .btn-primario:hover {
+        background-color: #0b5ed7;
+    }
+
+    .error-message {
+        color: #ff6b6b;
+    }
+
+    footer.footer {
+        background-color: #111;
+        color: #ccc;
+    }
+}
+
+       
+    
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+    
+        .checkout-progress {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+    
+        .step {
+            flex: 1;
+            padding: 1rem;
+            background: #e2e6ea;
+            text-align: center;
+            border-radius: 8px;
+            margin-right: 10px;
+            transition: background 0.3s;
+        }
+    
+        .step:last-child {
+            margin-right: 0;
+        }
+    
+        .step.active {
+            background: #0d6efd;
+            color: white;
+            font-weight: bold;
+        }
+    
+        .checkout-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+    
+        .checkout-form, .checkout-summary, .metodo-pago {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+    
+        .checkout-form {
+            flex: 2;
+        }
+    
+        .checkout-summary {
+            flex: 1;
+        }
+    
+        .form-group, .form-row {
+            margin-bottom: 1rem;
+        }
+    
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+    
+        label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 500;
+        }
+    
+        input, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+    
+        input:focus, select:focus {
+            border-color: #0d6efd;
+            outline: none;
+        }
+    
+        .shipping-methods {
+            margin-bottom: 1.5rem;
+        }
+    
+        .shipping-method {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+        }
+    
+        .summary-item, .summary-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+    
+        .summary-total {
+            font-weight: bold;
+            border-top: 1px solid #dee2e6;
+            padding-top: 1rem;
+            font-size: 1.1rem;
+        }
+    
+        .btn-primario {
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            padding: 0.85rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+    
+        .btn-primario:hover {
+            background-color: #0b5ed7;
+        }
+    
+        .metodo-pago {
+            margin-top: 2rem;
+        }
+    
+        #card-element {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background: #f1f3f5;
+        }
+    
+        .error-message {
+            color: #dc3545;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+    
+        h2, h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #212529;
+        }
+    
+        footer.footer {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: #212529;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
+    
+</head>
+<body>
+    
+
+    <main class="container checkout-page">
+        <div class="checkout-progress">
+            <div class="step active">1. Envío</div>
+            <div class="step">2. Pago</div>
+            <div class="step">3. Confirmación</div>
+        </div>
+
+        <div class="checkout-container">
+            <form class="checkout-form">
+                <h2>Información de envío</h2>
+
+                <div class="form-group">
+                    <label>Nombre completo</label>
+                    <input type="text" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Correo electrónico</label>
+                        <input type="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Dirección</label>
+                    <input type="text" required>
+                </div>
+               
+                  
+                       
+                
+                    
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Estado</label>
+                        <select id="estado" onchange="actualizarMunicipios()" required>
+                            <option value="">Seleccionar...</option>
+                            <!-- Se llenará desde JavaScript -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Municipio</label>
+                        <select id="municipio" required>
+                            <option value="">Seleccionar...</option>
+                            <!-- Se llenará dinámicamente -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Código Postal</label>
+                        <input type="text" required>
+                    </div>
+                </div>
+
+                <h2>Método de envío</h2>
+                <div class="shipping-methods">
+                    <label class="shipping-method">
+                        <input type="radio" name="shipping" checked>
+                        <span>Estándar (2-3 días) - $5.99</span>
+                    </label>
+                    <label class="shipping-method">
+                        <input type="radio" name="shipping">
+                        <span>Express (1 día) - $12.99</span>
+                    </label>
+                </div>
+
+              
+            </form>
+
+            <div class="checkout-summary">
+                <h3>Tu pedido</h3>
+                <div class="summary-items">
+                    <div class="summary-item">
+                        <span>Antena PRO x2</span>
+                        <span>$120.00</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Envío</span>
+                        <span>$5.99</span>
+                    </div>
+                    <div class="summary-total">
+                        <span>Total</span>
+                        <span>$125.99</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="metodo-pago">
+            <h2>Método de Pago</h2>
+            <div id="paypal-button-container"></div>
+            <form id="payment-form">
+                <div id="card-element"></div>
+                <button id="submit-payment" class="btn-primario">
+                    <i class="fas fa-lock"></i> Pagar $<span id="total-pagar">125.99</span>
+                </button>
+                <div id="payment-errors" class="error-message"></div>
+            </form>
+        </section>
+    </main>
+    <center>
+        <button class="btn-primario" style="padding: 0.4rem 1rem; font-size: 0.9rem; width: auto;" onclick="window.location.href='/carrito3.html'">
+          Volver al carrito
+        </button>
+      </center>
+      
+    <footer class="footer">
+        <!-- Mismo footer -->
+    </footer>
+
+    <script>
+        function siguientePaso() {
+            window.location.href = "checkout-pago.html";
+        }
+    </script>
+    <script src="https://www.paypal.com/sdk/js?client-id=TU_CLIENT_ID&currency=USD"></script>
+    <script>
+       paypal.Buttons({
+  createOrder: function(data, actions) {
+    const total = parseFloat(document.querySelector('#total-pagar').textContent);
+    return actions.order.create({
+      purchase_units: [{
+        amount: { value: total.toFixed(2) } // Aquí pasas el total calculado dinámicamente
+      }]
+    });
+  },
+  onApprove: function(data, actions) {
+    return actions.order.capture().then(function(details) {
+      alert('Pago completado por ' + details.payer.name.given_name);
+      window.location.href = 'confirmacion.html'; // Redirigir a la página de confirmación
+    });
+  }
+}).render('#paypal-button-container');
+
+    </script>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+      const stripe = Stripe('TU_PUBLIC_KEY');
+const elements = stripe.elements();
+const cardElement = elements.create('card');
+cardElement.mount('#card-element');
+
+const form = document.getElementById('payment-form');
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const {error, paymentMethod} = await stripe.createPaymentMethod({
+    type: 'card',
+    card: cardElement
+  });
+
+  if (error) {
+    document.getElementById('payment-errors').textContent = error.message;
+  } else {
+    const total = parseFloat(document.querySelector('#total-pagar').textContent);
+    
+    const response = await fetch('/procesar-pago', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        payment_method_id: paymentMethod.id,
+        amount: total * 100 // Convertir a centavos
+      })
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      window.location.href = 'confirmacion.html'; // Redirigir a la página de confirmación
+    } else {
+      document.getElementById('payment-errors').textContent = result.error;
+    }
+  }
+});
+    </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+  const productos = JSON.parse(localStorage.getItem('productos')) || [];
+  
+  // Actualizar resumen de productos
+  const productosContainer = document.querySelector('.summary-items');
+  productos.forEach(item => {
+    const div = document.createElement('div');
+    div.classList.add('summary-item');
+    div.innerHTML = `<span>${item.nombre} x${item.cantidad}</span><span>$${(item.precio * item.cantidad).toFixed(2)}</span>`;
+    productosContainer.appendChild(div);
+  });
+  
+  // Calcular el total
+  const subtotal = productos.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+  const envio = 5.99; // Puede ser un valor fijo o calculado según la elección del usuario
+  const total = subtotal + envio;
+
+  document.querySelector('.summary-total span:nth-child(2)').textContent = `$${total.toFixed(2)}`;
+  document.querySelector('#total-pagar').textContent = total.toFixed(2);
+});
+
+    </script>
+    <script>
+        const estadosYMunicipios = {
+            "Aguascalientes": ["Aguascalientes", "Asientos", "Calvillo", "Cosío", "El Llano", "Jesús María", "Pabellón de Arteaga", "Rincón de Romos", "San Francisco de los Romo", "San José de Gracia", "Tepezalá"],
+    "Baja California": ["Ensenada", "Mexicali", "Tecate", "Tijuana", "Playas de Rosarito"],
+    "Baja California Sur": ["Comondú", "La Paz", "Loreto", "Los Cabos", "Mulegé"],
+    "Campeche": ["Calkiní", "Campeche", "Candelaria", "Carmen", "Champotón", "Hecelchakán", "Hopelchén", "Palizada", "Tenabo", "Escárcega", "Calakmul"],
+    "Chiapas": ["Tuxtla Gutiérrez", "San Cristóbal de las Casas", "Tapachula", "Comitán", "Palenque", "Tonalá", "Ocosingo", "Reforma", "Pichucalco", "Arriaga"],
+    "Chihuahua": ["Chihuahua", "Juárez", "Delicias", "Parral", "Cuauhtémoc", "Camargo", "Nuevo Casas Grandes", "Jiménez"],
+    "Ciudad de México": ["Álvaro Obregón", "Azcapotzalco", "Benito Juárez", "Coyoacán", "Cuajimalpa de Morelos", "Cuauhtémoc", "Gustavo A. Madero", "Iztacalco", "Iztapalapa", "Magdalena Contreras", "Miguel Hidalgo", "Milpa Alta", "Tláhuac", "Tlalpan", "Venustiano Carranza", "Xochimilco"],
+    "Coahuila": ["Saltillo", "Torreón", "Piedras Negras", "Monclova", "Acuña", "San Pedro", "Frontera", "Sabinas"],
+    "Colima": ["Colima", "Manzanillo", "Tecomán", "Villa de Álvarez", "Armería", "Coquimatlán"],
+    "Durango": ["Durango", "Gómez Palacio", "Lerdo", "Santiago Papasquiaro", "Pánuco de Coronado"],
+    "Estado de México": ["Ecatepec", "Nezahualcóyotl", "Naucalpan", "Toluca", "Tlalnepantla", "Chimalhuacán", "Atizapán", "Ixtapaluca", "Cuautitlán Izcalli"],
+    "Guanajuato": ["León", "Irapuato", "Celaya", "Salamanca", "Guanajuato", "Silao", "San Luis de la Paz"],
+    "Guerrero": ["Acapulco", "Chilpancingo", "Iguala", "Taxco", "Zihuatanejo", "Coyuca de Benítez"],
+    "Hidalgo": ["Pachuca", "Tulancingo", "Tizayuca", "Tula", "Tepeji del Río", "Ixmiquilpan"],
+    "Jalisco": ["Guadalajara", "Zapopan", "Tlaquepaque", "Tonalá", "Puerto Vallarta", "Tepatitlán", "Lagos de Moreno"],
+    "Michoacán": ["Morelia", "Uruapan", "Zamora", "Lázaro Cárdenas", "Apatzingán", "Pátzcuaro"],
+    "Morelos": ["Cuernavaca", "Jiutepec", "Temixco", "Cuautla", "Emiliano Zapata", "Yautepec"],
+    "Nayarit": ["Tepic", "Bahía de Banderas", "Compostela", "Xalisco", "Santiago Ixcuintla"],
+    "Nuevo León": ["Monterrey", "Guadalupe", "San Nicolás de los Garza", "Apodaca", "Santa Catarina", "Escobedo", "San Pedro Garza García"],
+    "Oaxaca": ["Oaxaca de Juárez", "Salina Cruz", "Juchitán", "Huajuapan", "Tuxtepec", "Tehuantepec"],
+    "Puebla": ["Puebla", "Tehuacán", "San Martín Texmelucan", "Atlixco", "Cholula", "Amozoc"],
+    "Querétaro": ["Querétaro", "San Juan del Río", "El Marqués", "Corregidora", "Cadereyta", "Tequisquiapan"],
+    "Quintana Roo": ["Cancún", "Playa del Carmen", "Chetumal", "Tulum", "Cozumel", "Felipe Carrillo Puerto"],
+    "San Luis Potosí": ["San Luis Potosí", "Soledad", "Matehuala", "Ciudad Valles", "Rioverde", "Tamazunchale"],
+    "Sinaloa": ["Culiacán", "Mazatlán", "Los Mochis", "Guasave", "Navolato", "Escuinapa"],
+    "Sonora": ["Hermosillo", "Ciudad Obregón", "Nogales", "Guaymas", "Navojoa", "San Luis Río Colorado"],
+    "Tabasco": ["Villahermosa", "Cárdenas", "Comalcalco", "Paraíso", "Tenosique", "Macuspana"],
+    "Tamaulipas": ["Reynosa", "Matamoros", "Tampico", "Nuevo Laredo", "Ciudad Victoria", "Altamira"],
+    "Tlaxcala": ["Tlaxcala", "Apizaco", "Huamantla", "Chiautempan", "San Pablo del Monte"],
+    "Veracruz": ["Xalapa", "Veracruz", "Coatzacoalcos", "Poza Rica", "Orizaba", "Minatitlán", "Boca del Río"],
+    "Yucatán": ["Mérida", "Valladolid", "Tizimín", "Progreso", "Tekax", "Motul"],
+    "Zacatecas": ["Zacatecas", "Guadalupe", "Fresnillo", "Jerez", "Río Grande", "Sombrerete"]
+};
+    
+        // Llena el select de estados al cargar
+        window.onload = function () {
+            const estadoSelect = document.getElementById("estado");
+            for (const estado in estadosYMunicipios) {
+                const opcion = document.createElement("option");
+                opcion.value = estado;
+                opcion.textContent = estado;
+                estadoSelect.appendChild(opcion);
+            }
+        }
+    
+        function actualizarMunicipios() {
+            const estadoSeleccionado = document.getElementById("estado").value;
+            const municipioSelect = document.getElementById("municipio");
+            municipioSelect.innerHTML = '<option value="">Seleccionar...</option>';
+    
+            if (estadosYMunicipios[estadoSeleccionado]) {
+                estadosYMunicipios[estadoSeleccionado].forEach(municipio => {
+                    const opcion = document.createElement("option");
+                    opcion.value = municipio.toLowerCase().replace(/\s+/g, "-");
+                    opcion.textContent = municipio;
+                    municipioSelect.appendChild(opcion);
+                });
+            }
+        }
+    </script>
+    
+</body>
+</html>
